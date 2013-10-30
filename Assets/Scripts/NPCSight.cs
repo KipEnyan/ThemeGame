@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NPCSight : MonoBehaviour {
-	
+public class NPCSight : MonoBehaviour 
+{
 	public float FOV = 90f;
 	public bool playerInSight;
 	public Vector3 lastKnownPosition;
@@ -20,13 +20,6 @@ public class NPCSight : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
 	}
 	
-	void Update()
-	{
-		if(playerInSight)
-		{
-			print ("Player seen.");	
-		}
-	}
 	
 	void OnTriggerStay (Collider other)
 	{
@@ -35,20 +28,21 @@ public class NPCSight : MonoBehaviour {
 			//print ("Player detected.");
 			playerInSight = false;
 			
-			Vector3 direction = other.transform.position - transform.position;
+			Vector3 direction = other.transform.position - (transform.position + transform.up + transform.forward);
 			float angle = Vector3.Angle(direction, transform.forward);
 			
 			if (angle < FOV * 0.5f)
 			{
 				//print ("Player in FOV.");
 				RaycastHit hit;
+				Debug.DrawRay(transform.position + transform.up + transform.forward, direction);
 				
-				if (Physics.Raycast(transform.position + transform.up, direction.normalized, out hit, col.radius))
+				if (Physics.Raycast(transform.position + transform.up + transform.forward, direction.normalized, out hit, col.radius))
 				{
-					print ("Raycast hit something.");
+					//Debug.DrawLine(transform.position + transform.up + transform.forward, other.transform.position);
 					if (hit.collider.gameObject == player)
 					{
-						print ("Player seen.");
+						//print ("Raycast hit player.");
 						playerInSight = true;
 					}
 				}
