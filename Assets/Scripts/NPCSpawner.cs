@@ -49,7 +49,7 @@ public class NPCSpawner : MonoBehaviour {
 
             // ------------------------------------------------------
             // Add a hat at random from hatChoices
-            Vector3 hatPos = new Vector3(0, 1.5f, 0);
+            Vector3 hatPos = new Vector3(0, 1.7f, 0);
             
             int randomHat = Random.Range(0, hatChoices.Count);
             npcProperties.hatNumber = randomHat;
