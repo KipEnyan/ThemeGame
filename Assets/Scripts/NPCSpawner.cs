@@ -5,7 +5,11 @@ using System.Collections.Generic;
 public class NPCSpawner : MonoBehaviour {
     
     public int numberToSpawn = 3;
-    public Vector3 spawnArea = new Vector3(9f, 0f, 9f);
+
+    // spawnOrigins and spawnAreas should be of the same size
+    public List<Vector3> spawnOrigins;
+    public List<Vector3> spawnAreas;
+
     public GameObject npcPrefab;
     public List<Material> materialChoices;
     public List<GameObject> hatChoices;
@@ -18,6 +22,11 @@ public class NPCSpawner : MonoBehaviour {
         for (int i = 0; i < numberToSpawn; ++i) {
             // ------------------------------------------------------
             // Instantiate NPC and place it in the scene
+            int numSpawns = Mathf.Min(spawnOrigins.Count, spawnAreas.Count);
+            int randomSpawnIndex = Random.Range(0, numSpawns);
+            Vector3 spawnOrigin = spawnOrigins[randomSpawnIndex];
+            Vector3 spawnArea = spawnAreas[randomSpawnIndex];
+
             Vector3 npcPos = new Vector3(Random.Range(-0.5f, 0.5f),
                                          Random.Range(-0.5f, 0.5f),
                                          Random.Range(-0.5f, 0.5f));
@@ -26,9 +35,8 @@ public class NPCSpawner : MonoBehaviour {
             GameObject npc = (GameObject)Instantiate(npcPrefab);
             NPCProperties npcProperties = (NPCProperties)npc.GetComponent("NPCProperties");
 
-            npc.transform.position = npcPos + transform.position;
+            npc.transform.position = npcPos + transform.position + spawnOrigin;
             npc.transform.Rotate(npcRotation);
-
             npc.transform.parent = transform;
             // ------------------------------------------------------
 
