@@ -15,13 +15,14 @@ public class speechScript : MonoBehaviour {
 		dialogTimer = dialogSwitchTime;
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
-		Vector3 v = cameraToLookAt.transform.position - transform.position;
-		v.x = v.z = 0.0f;
-		transform.LookAt( cameraToLookAt.transform.position - v );
+	
+		//Track speech billboard towards player in the XY direction
+		transform.LookAt( cameraToLookAt.transform.position );
 		transform.Rotate(0, 180, 0);
 		
+		//Switch dialog text after some amount of time
 		dialogTimer -= Time.deltaTime;
 		if(dialogTimer <= 0){
 			TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
