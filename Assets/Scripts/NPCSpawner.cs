@@ -11,7 +11,11 @@ public class NPCSpawner : MonoBehaviour {
     public List<Vector3> spawnAreas;
 
     public GameObject npcPrefab;
-    public List<Material> materialChoices;
+
+    public List<Color> skinColors;
+    public List<Color> suitColors;
+    public List<Color> tieColors;
+
     public List<GameObject> hatChoices;
 
     void Start() {
@@ -41,22 +45,42 @@ public class NPCSpawner : MonoBehaviour {
             // ------------------------------------------------------
 
             // ------------------------------------------------------
-            // Replace second material with a random material from materialChoices
-            int randomMaterial = Random.Range(0, materialChoices.Count);
-            npcProperties.materialNumber = randomMaterial;
-            Material materialCopy = new Material(materialChoices[randomMaterial]);
-
-            Color tintColor = new Color(Random.value, Random.value, Random.value, 1);
-            npcProperties.tintColor = tintColor;
-            materialCopy.SetColor("_Color", tintColor);
-            
+            // Replace materials with tinted materials
             Material[] replacementMaterials = npc.renderer.materials;
-            replacementMaterials[1] = materialCopy;
+
+            // Tint skin
+            int randomSkinColor = Random.Range(0, skinColors.Count);
+            Color skinColor = skinColors[randomSkinColor];
+            npcProperties.skinColorNumber = randomSkinColor;
+            npcProperties.skinColor = skinColor;
+            Material skinCopy = new Material(npc.renderer.materials[0]);
+            skinCopy.SetColor("_Color", skinColor);
+            replacementMaterials[0] = skinCopy;
+
+            // Tint suit (clothes1)
+            int randomSuitColor = Random.Range(0, suitColors.Count);
+            Color suitColor = suitColors[randomSuitColor];
+            npcProperties.suitColorNumber = randomSuitColor;
+            npcProperties.suitColor = suitColor;
+            Material suitCopy = new Material(npc.renderer.materials[3]);
+            suitCopy.SetColor("_Color", suitColor);
+            replacementMaterials[3] = suitCopy;
+
+            // Tint tie (clothes2)
+            int randomTieColor = Random.Range(0, tieColors.Count);
+            Color tieColor = tieColors[randomTieColor];
+            npcProperties.tieColorNumber = randomTieColor;
+            npcProperties.tieColor = tieColor;
+            Material tieCopy = new Material(npc.renderer.materials[4]);
+            tieCopy.SetColor("_Color", tieColor);
+            replacementMaterials[4] = tieCopy;
+
             npc.renderer.materials = replacementMaterials;
             // ------------------------------------------------------
 
             // ------------------------------------------------------
             // Add a hat at random from hatChoices
+            /*
             Vector3 hatPos = new Vector3(0, 1.7f, 0);
             
             int randomHat = Random.Range(0, hatChoices.Count);
@@ -66,6 +90,7 @@ public class NPCSpawner : MonoBehaviour {
             hat.transform.position = hatPos + npc.transform.position;
             hat.transform.Rotate(npcRotation);
             hat.transform.parent = npc.transform;
+            */
             // ------------------------------------------------------
         }
     }
