@@ -4,6 +4,7 @@ using System.Collections;
 public class NPCSight : MonoBehaviour
 {
 	public float FOV = 90f;
+	public bool availableNPCNearby;
 	public bool playerInSight;
 	public bool playerIsHeard;
 	public bool deadNPCInSight;
@@ -47,21 +48,25 @@ public class NPCSight : MonoBehaviour
 			} else {
 				playerIsHeard = false;	
 			}
-		} else if (other.gameObject.GetComponent<NPCProperties> () != null) {
-			if (other.gameObject.GetComponent<NPCProperties> ().isDead) {
+		} else if (other.gameObject.GetComponent<NPCProperties>() != null) 
+		{
+			if (other.gameObject.GetComponent<NPCProperties>().isDead) 
+			{
 				deadNPCInSight = false;
 			
 				Vector3 direction = other.transform.position - (transform.position + transform.up + transform.forward);
 				float angle = Vector3.Angle (direction, transform.forward);
 			
-				if (angle < FOV * 0.5f) {
+				if (angle < FOV * 0.5f)
+				{
 					//print ("Dead NPC in FOV.");
 					RaycastHit hit;
 					//Debug.DrawRay(transform.position + transform.up + transform.forward, direction);
 				
 					if (Physics.Raycast (transform.position + transform.up + transform.forward, direction.normalized, out hit, col.radius)) {
 						//Debug.DrawLine(transform.position + transform.up + transform.forward, other.transform.position);
-						if (hit.collider.gameObject.GetComponent<NPCProperties> ().isDead) {
+						if (hit.collider.gameObject.GetComponent<NPCProperties>().isDead)
+						{
 							//print ("Raycast hit dead NPC.");
 							deadNPCInSight = true;
 						}

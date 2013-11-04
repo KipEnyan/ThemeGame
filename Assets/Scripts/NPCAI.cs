@@ -3,11 +3,15 @@ using System.Collections;
 
 public class NPCAI : MonoBehaviour 
 {
+	public bool isBusy = false;
+	public bool isPanicked = false;
 	public bool suspiciousSound = false;
 	public float xBound1 = 0f;
 	public float xBound2 = 50f;
 	public float zBound1 = 0f;
 	public float zBound2 = 50f;
+	public AudioClip screamSound;
+	private AudioSource npcSound;
 	private NavMeshAgent nav;
 	private NPCSight sight;
 	private GameObject player;
@@ -18,18 +22,32 @@ public class NPCAI : MonoBehaviour
 		nav.ResetPath();
 		sight = GetComponent<NPCSight>();
 		player = GameObject.FindWithTag("Player");
+		npcSound = GetComponent<AudioSource>();
 	}
 	
 	void Update()
 	{
-		if (sight.playerIsHeard && suspiciousSound)
+		if(isPanicked)
+		{
+			Flee();
+		}
+		else if (sight.deadNPCInSight)
+		{
+			Scream();
+		}
+		else if (sight.playerIsHeard && suspiciousSound)
 		{
 			Investigate();
 		}
+		else if (sight.availableNPCNearby && !isBusy)
+		{
+			Converse ();	
+		}
 		else
 		{
-			Wander ();
+			Wander();
 		}
+		
 	}
 	
 	void Investigate()
@@ -49,5 +67,20 @@ public class NPCAI : MonoBehaviour
 	
 	void Converse()
 	{
+
+	}
+	
+	void Scream()
+	{
+		nav.Stop();
+		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), Time.deltaTime);
+		npcSound.clip = screamSound;
+		npcSound.Play();
+		isPanicked = true;
+	}
+	
+	void Flee()
+	{
+		
 	}
 }
