@@ -13,6 +13,8 @@ public class NPCSpawner : MonoBehaviour {
     public GameObject npcPrefab;
 
     public List<Color> skinColors;
+    public List<GameObject> hairChoices;
+    public List<Color> hairColors;
 
     public List<Color> costumeColors;
     public List<string> costumeColorNames;
@@ -114,6 +116,27 @@ public class NPCSpawner : MonoBehaviour {
 
             base_mesh.renderer.materials = replacementMaterials;
             // ------------------------------------------------------
+
+            // Pick random hair, tint it, and attach it
+            int randomHair = Random.Range(0, hairChoices.Count);
+            npcProperties.hairNumber = randomHair;
+            GameObject hair = (GameObject)Instantiate(hairChoices[randomHair]);
+            int randomHairColor = Random.Range(0, hairColors.Count);
+            Color hairColor = hairColors[randomHairColor];
+            npcProperties.hairColorNumber = randomHairColor;
+            npcProperties.hairColor = hairColor;
+            Material hairMaterial = new Material(hair.renderer.material);
+            hairMaterial.SetColor("_Color", hairColor);
+            hair.renderer.material = hairMaterial;
+            Transform head = npc.transform.Find("Rig/hips/upper_hip/spine/chest/neck/head");
+            hair.transform.parent = head.transform;
+            hair.transform.localPosition = new Vector3(-0.28f, 0.1f, 0);
+            hair.transform.localRotation = Quaternion.identity;
+            hair.transform.Rotate(new Vector3(0, 90, 180));
+
+            // Inkay rotation: 270, 90, 0
+
+
 
             // ------------------------------------------------------
             // Add a hat at random from hatChoices
