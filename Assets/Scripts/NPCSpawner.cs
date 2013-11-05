@@ -60,15 +60,16 @@ public class NPCSpawner : MonoBehaviour {
             npcProperties.npcName = nameChoices[randomName];
 
             // ------------------------------------------------------
-            // Replace materials with tinted materials
-            Material[] replacementMaterials = npc.renderer.materials;
+            // Replace base mesh materials with tinted materials
+			GameObject base_mesh = npc.transform.FindChild("base_mesh").gameObject;
+            Material[] replacementMaterials = base_mesh.renderer.materials;
 
             // Tint skin
             int randomSkinColor = Random.Range(0, skinColors.Count);
             Color skinColor = skinColors[randomSkinColor];
             npcProperties.skinColorNumber = randomSkinColor;
             npcProperties.skinColor = skinColor;
-            Material skinCopy = new Material(npc.renderer.materials[0]);
+            Material skinCopy = new Material(base_mesh.renderer.materials[0]);
             skinCopy.SetColor("_Color", skinColor);
             replacementMaterials[0] = skinCopy;
 
@@ -78,7 +79,7 @@ public class NPCSpawner : MonoBehaviour {
             npcProperties.suitColorNumber = randomSuitColor;
             npcProperties.suitColorName = costumeColorNames[randomSuitColor];
             npcProperties.suitColor = suitColor;
-            Material suitCopy = new Material(npc.renderer.materials[3]);
+            Material suitCopy = new Material(base_mesh.renderer.materials[3]);
             suitCopy.SetColor("_Color", suitColor);
             replacementMaterials[3] = suitCopy;
 
@@ -88,11 +89,11 @@ public class NPCSpawner : MonoBehaviour {
             npcProperties.tieColorNumber = randomTieColor;
             npcProperties.tieColorName = costumeColorNames[randomTieColor];
             npcProperties.tieColor = tieColor;
-            Material tieCopy = new Material(npc.renderer.materials[4]);
+            Material tieCopy = new Material(base_mesh.renderer.materials[4]);
             tieCopy.SetColor("_Color", tieColor);
             replacementMaterials[4] = tieCopy;
 
-            npc.renderer.materials = replacementMaterials;
+            base_mesh.renderer.materials = replacementMaterials;
             // ------------------------------------------------------
 
             // ------------------------------------------------------
