@@ -130,13 +130,8 @@ public class NPCSpawner : MonoBehaviour {
             hair.renderer.material = hairMaterial;
             Transform head = npc.transform.Find("Rig/hips/upper_hip/spine/chest/neck/head");
             hair.transform.parent = head.transform;
-            hair.transform.localPosition = new Vector3(-0.28f, 0.1f, 0);
-            hair.transform.localRotation = Quaternion.identity;
-            hair.transform.Rotate(new Vector3(0, 90, 180));
-
-            // Inkay rotation: 270, 90, 0
-
-
+            hair.transform.localPosition = new Vector3(1.45f, 0, 0);
+            hair.transform.forward = npc.transform.forward;
 
             // ------------------------------------------------------
             // Add a hat at random from hatChoices
