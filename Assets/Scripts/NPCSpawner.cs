@@ -117,6 +117,9 @@ public class NPCSpawner : MonoBehaviour {
             base_mesh.renderer.materials = replacementMaterials;
             // ------------------------------------------------------
 
+            Transform head = npc.transform.Find("Rig/hips/upper_hip/spine/chest/neck/head");
+
+            // ------------------------------------------------------
             // Pick random hair, tint it, and attach it
             int randomHair = Random.Range(0, hairChoices.Count);
             npcProperties.hairNumber = randomHair;
@@ -128,29 +131,19 @@ public class NPCSpawner : MonoBehaviour {
             Material hairMaterial = new Material(hair.renderer.material);
             hairMaterial.SetColor("_Color", hairColor);
             hair.renderer.material = hairMaterial;
-            Transform head = npc.transform.Find("Rig/hips/upper_hip/spine/chest/neck/head");
             hair.transform.parent = head.transform;
             hair.transform.localPosition = new Vector3(1.47f, 0, 0);
             hair.transform.forward = npc.transform.forward;
+            // ------------------------------------------------------
 
             // ------------------------------------------------------
-            // Add a hat at random from hatChoices
-            int randomHat = Random.Range(0, hatChoices.Count);
-            npcProperties.hatNumber = randomHat;
-            npcProperties.hatName = hatChoiceNames[randomHat];
-            // TODO (when hats are ready): instantiate and parent to bone
-
-            /*
-            Vector3 hatPos = new Vector3(0, 1.7f, 0);
-            
+            // Pick random hat and attach it
             int randomHat = Random.Range(0, hatChoices.Count);
             npcProperties.hatNumber = randomHat;
             GameObject hat = (GameObject)Instantiate(hatChoices[randomHat]);
-
-            hat.transform.position = hatPos + npc.transform.position;
-            hat.transform.Rotate(npcRotation);
-            hat.transform.parent = npc.transform;
-            */
+            hat.transform.parent = head.transform;
+            hat.transform.localPosition = new Vector3(1.47f, 0, 0);
+            hat.transform.forward = npc.transform.forward;
             // ------------------------------------------------------
         }
 
