@@ -20,10 +20,11 @@ public class NPCSpawner : MonoBehaviour {
     public List<GameObject> hatChoices;
     public List<string> hatChoiceNames;
 
-    private List<string> nameChoices;
+    private string [] nameChoices;
 
     void Start() {
-        LoadNames();
+        nameChoices = ((TextAsset)Resources.Load("names", typeof(TextAsset))).text.Split('\n');
+
         Spawn();
     }
 
@@ -55,7 +56,7 @@ public class NPCSpawner : MonoBehaviour {
             npc.transform.parent = transform;
             // ------------------------------------------------------
 
-            int randomName = Random.Range(0, nameChoices.Count);
+            int randomName = Random.Range(0, nameChoices.Length);
             npcProperties.npcName = nameChoices[randomName];
 
             // ------------------------------------------------------
@@ -121,112 +122,6 @@ public class NPCSpawner : MonoBehaviour {
         int targetNumber = Random.Range(0, npcs.Count);
         gameVariables.targetNumber = targetNumber;
         gameVariables.target = npcs[targetNumber];
-    }
-
-    void LoadNames() {
-        nameChoices = new List<string>();
-
-        // Should be loaded from a file but apparently that isn't trivial in Unity/C#...
-        nameChoices.Add("Jacob");
-        nameChoices.Add("Mason");
-        nameChoices.Add("Ethan");
-        nameChoices.Add("Noah");
-        nameChoices.Add("William");
-        nameChoices.Add("Liam");
-        nameChoices.Add("Jayden");
-        nameChoices.Add("Michael");
-        nameChoices.Add("Alexander");
-        nameChoices.Add("Aiden");
-        nameChoices.Add("Daniel");
-        nameChoices.Add("Matthew");
-        nameChoices.Add("Elijah");
-        nameChoices.Add("James");
-        nameChoices.Add("Anthony");
-        nameChoices.Add("Benjamin");
-        nameChoices.Add("Joshua");
-        nameChoices.Add("Andrew");
-        nameChoices.Add("David");
-        nameChoices.Add("Joseph");
-        nameChoices.Add("Logan");
-        nameChoices.Add("Jackson");
-        nameChoices.Add("Christopher");
-        nameChoices.Add("Gabriel");
-        nameChoices.Add("Samuel");
-        nameChoices.Add("Ryan");
-        nameChoices.Add("Lucas");
-        nameChoices.Add("John");
-        nameChoices.Add("Nathan");
-        nameChoices.Add("Isaac");
-        nameChoices.Add("Dylan");
-        nameChoices.Add("Caleb");
-        nameChoices.Add("Christian");
-        nameChoices.Add("Landon");
-        nameChoices.Add("Jonathan");
-        nameChoices.Add("Carter");
-        nameChoices.Add("Luke");
-        nameChoices.Add("Owen");
-        nameChoices.Add("Brayden");
-        nameChoices.Add("Gavin");
-        nameChoices.Add("Wyatt");
-        nameChoices.Add("Isaiah");
-        nameChoices.Add("Henry");
-        nameChoices.Add("Eli");
-        nameChoices.Add("Hunter");
-        nameChoices.Add("Jack");
-        nameChoices.Add("Evan");
-        nameChoices.Add("Jordan");
-        nameChoices.Add("Nicholas");
-        nameChoices.Add("Tyler");
-        nameChoices.Add("Aaron");
-        nameChoices.Add("Jeremiah");
-        nameChoices.Add("Julian");
-        nameChoices.Add("Cameron");
-        nameChoices.Add("Levi");
-        nameChoices.Add("Brandon");
-        nameChoices.Add("Angel");
-        nameChoices.Add("Austin");
-        nameChoices.Add("Connor");
-        nameChoices.Add("Adrian");
-        nameChoices.Add("Robert");
-        nameChoices.Add("Charles");
-        nameChoices.Add("Thomas");
-        nameChoices.Add("Sebastian");
-        nameChoices.Add("Colton");
-        nameChoices.Add("Jaxon");
-        nameChoices.Add("Kevin");
-        nameChoices.Add("Zachary");
-        nameChoices.Add("Ayden");
-        nameChoices.Add("Dominic");
-        nameChoices.Add("Blake");
-        nameChoices.Add("Jose");
-        nameChoices.Add("Oliver");
-        nameChoices.Add("Justin");
-        nameChoices.Add("Bentley");
-        nameChoices.Add("Jason");
-        nameChoices.Add("Chase");
-        nameChoices.Add("Ian");
-        nameChoices.Add("Josiah");
-        nameChoices.Add("Parker");
-        nameChoices.Add("Xavier");
-        nameChoices.Add("Adam");
-        nameChoices.Add("Cooper");
-        nameChoices.Add("Nathaniel");
-        nameChoices.Add("Grayson");
-        nameChoices.Add("Jace");
-        nameChoices.Add("Carson");
-        nameChoices.Add("Nolan");
-        nameChoices.Add("Tristan");
-        nameChoices.Add("Luis");
-        nameChoices.Add("Brody");
-        nameChoices.Add("Juan");
-        nameChoices.Add("Hudson");
-        nameChoices.Add("Bryson");
-        nameChoices.Add("Carlos");
-        nameChoices.Add("Easton");
-        nameChoices.Add("Damian");
-        nameChoices.Add("Alex");
-        nameChoices.Add("Kayden");
-        nameChoices.Add("Ryder");
     }
 
     void Update() {
