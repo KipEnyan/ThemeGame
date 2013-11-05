@@ -7,3 +7,4 @@ I'll see you around!
 Have a nice night!
 Enjoy the rest of your evening.
 I have to go, my friends are waiting.
+Anyways, I need to go get some more champagane for my bud {npc-name}

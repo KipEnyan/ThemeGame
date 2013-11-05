@@ -9,7 +9,7 @@ public class dialogueManager : MonoBehaviour {
 	private string[] farewells;
 	private string[] panic;
 	private int line_len = 40;
-	//private NPCManager NPCMgr;
+	private GameVariables NPCInfo;
 	
 
 	void Start () {
@@ -21,9 +21,8 @@ public class dialogueManager : MonoBehaviour {
 		farewells = ((TextAsset)Resources.Load("farewells", typeof(TextAsset))).text.Split('\n');
 		panic = ((TextAsset)Resources.Load("panic", typeof(TextAsset))).text.Split('\n');
 		
-		/* debug */
-		print(greetings.Length);
-		print("Done");
+		/* cache the NPCInfo object from the GameVars */
+		NPCInfo = GameObject.Find("GameController").GetComponent<GameVariables>();
 	}
 	
 	
@@ -32,19 +31,20 @@ public class dialogueManager : MonoBehaviour {
 	string processDialogue(string to_process, string speech_state){
 		string return_str = "";
 		
-		/* feature pending Scott's NPC manager / property access */
-		/*
-		NPC some_npc;
+		/* dynamically tweak sentences to keep things interesting */
 		
+		NPCProperties npc_props;
 		if(speech_state == "hint")
-			some_npc = target;
+			npc_props = (NPCProperties)NPCInfo.target.GetComponent("NPCProperties");
 		else
-			some_npc = random_npc;
+			npc_props = (NPCProperties)NPCInfo.npcs[Random.Range(0, NPCInfo.npcs.Count - 1)].GetComponent("NPCProperties");
 		
-		to_process.Replace ("{mask}", some_npc.mask);
-		to_process.Replace ("{suit-color}", some_npc.suit);
-		to_process.Replace ("{tie-color}", some_npc.tie);
-		*/
+		to_process = to_process.Replace("{hat}", npc_props.hatName);
+		to_process = to_process.Replace("{suit-color}", npc_props.suitColorName);
+		to_process = to_process.Replace("{tie-color}", npc_props.tieColorName);
+		to_process = to_process.Replace("{npc-name}", npc_props.npcName);
+		//to_process = to_process.Replace("{hair-color}", npc_props.hairColor);
+		
 		
 		/* make sure our dialogue isn't one super huge line */
 		if(to_process.Length > line_len){

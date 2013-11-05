@@ -5,10 +5,19 @@ public class speechScript : MonoBehaviour {
 	
 	public Camera cameraToLookAt;
 	private dialogueManager dialogueMgr;
+	private float dialogueReset;
+	private float dialogueTimer;
+	public string npcState = "";
+	
 
 	// Use this for initialization
 	void Start () {
-		dialogueMgr = GameObject.Find("dialogueMgrObj").GetComponent<dialogueManager>();
+        GameObject gameController;
+        gameController = GameObject.FindGameObjectWithTag("GameController");
+		dialogueMgr = (dialogueManager)gameController.GetComponent("dialogueManager");
+		cameraToLookAt = Camera.main;
+		dialogueReset = Random.Range(3.0f,6.5f);
+		dialogueTimer = dialogueReset;
 	}
 	
 	void Update () {
@@ -17,15 +26,24 @@ public class speechScript : MonoBehaviour {
 		transform.LookAt( cameraToLookAt.transform.position );
 		transform.Rotate(0, 180, 0);
 		
+		/* update billboard text */
+		dialogueTimer -= Time.deltaTime;
+		if(dialogueTimer <= 0){
+			TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
+			
+			if(npcState == "")
+				temp.text = "";
+			else
+				temp.text = dialogueMgr.getDialogue(npcState);
+			
+			dialogueReset = Random.Range(3.0f,6.5f);
+			dialogueTimer = dialogueReset;
+		}
 	}
 	
-	/* update speech text based on state */
-	public void updateSpeech(string player_state){
-		TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
-		
-		if(player_state == "")
-			temp.text = "";
-		else
-			temp.text = dialogueMgr.getDialogue(player_state);
+	/* update speech state... */
+	public void updateState(string someState){
+		npcState = someState;
+		return;
 	}
 }
