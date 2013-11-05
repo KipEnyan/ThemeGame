@@ -1,0 +1,13 @@
+Wow, I love the extravagance of this party!
+The sangria is excellent, I suggest you try some.
+It's pretty funny watching people try to dance while in their costumes.
+I checked out the bathrooms earlier, talk about a porecelain throne!
+I like the mask {npc-name} is wearing, I haven't seen anything quite like it before!
+Have you seen my friend {npc-name}? I haven't seen him in awhile...
+The pork was absolutely delicious.
+It's fun to gaze out these huge windows, it's a beautiful night out.
+This mansion is huge! This is my first time attending a part here.
+Have you seen the guy with a {suit-color} suit? He has been acting strange all night.
+I wish I had a {hat} hat as nice as {npc-name}'s, it's pretty slick.
+Watch out for the guy with a {hat} hat, he smells like death.
+I saw a guy with a snazzy {suit-color} suit, slightly jealous of it.

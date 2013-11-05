@@ -1,0 +1,3 @@
+Wow, aren't you lucky, got a hint for you. Your target's name is {npc-name}
+The guy with a {hat} hat is the man you're looking for.
+These hints are OP.

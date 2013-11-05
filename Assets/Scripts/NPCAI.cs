@@ -11,10 +11,19 @@ public class NPCAI : MonoBehaviour
 	public float zBound1 = 0f;
 	public float zBound2 = 50f;
 	public AudioClip screamSound;
+	public GameObject speechBubble;
+	private speechScript speech;
 	private AudioSource npcSound;
 	private NavMeshAgent nav;
 	private NPCSight sight;
 	private GameObject player;
+	
+	void Start()
+	{
+		speechBubble = (GameObject)Instantiate(speechBubble, transform.position + transform.up*2.4f, transform.rotation);
+		speechBubble.transform.parent = transform;
+		speech = (speechScript)speechBubble.GetComponent("speechScript");
+	}
 	
 	void Awake()
 	{
@@ -27,6 +36,9 @@ public class NPCAI : MonoBehaviour
 	
 	void Update()
 	{
+		/* basic dialogue system test */
+		speech.updateState("misc");
+		
 		if(isPanicked)
 		{
 			Flee();
