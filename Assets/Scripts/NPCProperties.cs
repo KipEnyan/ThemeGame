@@ -11,6 +11,10 @@ public class NPCProperties : MonoBehaviour {
     public int skinColorNumber;
     public Color skinColor;
 
+    public int hairNumber;
+    public int hairColorNumber;
+    public Color hairColor;
+
     public int suitColorNumber;
     public Color suitColor;
     public string suitColorName;
