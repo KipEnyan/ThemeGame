@@ -9,10 +9,14 @@ public class NPCProperties : MonoBehaviour {
 
     public int skinColorNumber;
     public Color skinColor;
+
     public int suitColorNumber;
     public Color suitColor;
+    public string suitColorName;
+
     public int tieColorNumber;
     public Color tieColor;
+    public string tieColorName;
 
     void Start() {
 

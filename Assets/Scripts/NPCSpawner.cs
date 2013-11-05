@@ -13,16 +13,25 @@ public class NPCSpawner : MonoBehaviour {
     public GameObject npcPrefab;
 
     public List<Color> skinColors;
-    public List<Color> suitColors;
-    public List<Color> tieColors;
+
+    public List<Color> costumeColors;
+    public List<string> costumeColorNames;
+
+
+    //public List<Color> suitColors;
+    //public List<Color> tieColors;
 
     public List<GameObject> hatChoices;
+    public List<string> hatChoiceNames;
 
     void Start() {
         Spawn();
     }
 
     void Spawn() {
+        GameObject gameController;
+        gameController = GameObject.FindGameObjectWithTag("GameController");
+
         for (int i = 0; i < numberToSpawn; ++i) {
             // ------------------------------------------------------
             // Instantiate NPC and place it in the scene
@@ -58,18 +67,20 @@ public class NPCSpawner : MonoBehaviour {
             replacementMaterials[0] = skinCopy;
 
             // Tint suit (clothes1)
-            int randomSuitColor = Random.Range(0, suitColors.Count);
-            Color suitColor = suitColors[randomSuitColor];
+            int randomSuitColor = Random.Range(0, costumeColors.Count);
+            Color suitColor = costumeColors[randomSuitColor];
             npcProperties.suitColorNumber = randomSuitColor;
+            npcProperties.suitColorName = costumeColorNames[randomSuitColor];
             npcProperties.suitColor = suitColor;
             Material suitCopy = new Material(npc.renderer.materials[3]);
             suitCopy.SetColor("_Color", suitColor);
             replacementMaterials[3] = suitCopy;
 
             // Tint tie (clothes2)
-            int randomTieColor = Random.Range(0, tieColors.Count);
-            Color tieColor = tieColors[randomTieColor];
+            int randomTieColor = Random.Range(0, costumeColors.Count);
+            Color tieColor = costumeColors[randomTieColor];
             npcProperties.tieColorNumber = randomTieColor;
+            npcProperties.tieColorName = costumeColorNames[randomTieColor];
             npcProperties.tieColor = tieColor;
             Material tieCopy = new Material(npc.renderer.materials[4]);
             tieCopy.SetColor("_Color", tieColor);
