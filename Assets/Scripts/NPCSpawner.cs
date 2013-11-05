@@ -20,12 +20,27 @@ public class NPCSpawner : MonoBehaviour {
     public List<GameObject> hatChoices;
     public List<string> hatChoiceNames;
 
+    private int currentName = 0;
     private string [] nameChoices;
 
     void Start() {
+        LoadNames();
+        Spawn();
+    }
+
+    void LoadNames() {
         nameChoices = ((TextAsset)Resources.Load("names", typeof(TextAsset))).text.Split('\n');
 
-        Spawn();
+        ShuffleArray(nameChoices);
+    }
+
+    void ShuffleArray(string [] arr) {
+        for (int i = arr.Length - 1; i > 0; --i) {
+            int shuffleTarget = Random.Range(0, i);
+            string temp = arr[i];
+            arr[i] = arr[shuffleTarget];
+            arr[shuffleTarget] = temp;
+        }
     }
 
     void Spawn() {
@@ -56,8 +71,12 @@ public class NPCSpawner : MonoBehaviour {
             npc.transform.parent = transform;
             // ------------------------------------------------------
 
-            int randomName = Random.Range(0, nameChoices.Length);
-            npcProperties.npcName = nameChoices[randomName];
+            npcProperties.npcName = nameChoices[currentName];
+            currentName++;
+            if (currentName >= nameChoices.Length) {
+                print ("Warning: not enough names, there will be duplicates.");
+                currentName = 0;
+            }
 
             // ------------------------------------------------------
             // Replace base mesh materials with tinted materials
