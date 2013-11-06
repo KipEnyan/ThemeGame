@@ -8,11 +8,4 @@ public class GameVariables : MonoBehaviour {
     public GameObject target;
     public List<GameObject> npcs;
 
-	void Start () {
-	
-	}
-
-	void Update () {
-	
-	}
 }
