@@ -62,7 +62,8 @@ public class MenuScreens : MonoBehaviour {
 		if(state == "mainmenu")
 		{
 			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), menu_bg);
-			GUI.Box (new Rect((Screen.width/2)-50, (Screen.height/2)-25, 100, 50),"");
+			
+			/* play button */
 			if(GUI.Button(new Rect((Screen.width/2)-50, (Screen.height/2)-25, 100, 50), "Play", mainmenu_text))
 			{
 				state = "playing";
@@ -70,11 +71,9 @@ public class MenuScreens : MonoBehaviour {
 				flipPause();
 			}
 			
-			GUI.Box (new Rect((Screen.width/2)-50, (Screen.height/2 + 75)-25, 100, 50),"");
+			/* exit button */
 			if(GUI.Button(new Rect((Screen.width/2)-50, (Screen.height/2 + 75)-25, 100, 50), "Exit", mainmenu_text))
-			{
 				Application.Quit();
-			}
 		}
 		
 		/* draw pause screen */
