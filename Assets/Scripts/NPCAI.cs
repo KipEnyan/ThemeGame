@@ -18,13 +18,6 @@ public class NPCAI : MonoBehaviour
 	private NPCSight sight;
 	private GameObject player;
 	
-	void Start()
-	{
-		speechBubble = (GameObject)Instantiate(speechBubble, transform.position + transform.up*2.4f, transform.rotation);
-		speechBubble.transform.parent = transform;
-		speech = (speechScript)speechBubble.GetComponent("speechScript");
-	}
-	
 	void Awake()
 	{
 		nav = GetComponent<NavMeshAgent>();
@@ -32,12 +25,13 @@ public class NPCAI : MonoBehaviour
 		sight = GetComponent<NPCSight>();
 		player = GameObject.FindWithTag("Player");
 		npcSound = GetComponent<AudioSource>();
+		speechBubble = (GameObject)Instantiate(speechBubble, transform.position + transform.up*2.4f, transform.rotation);
+		speechBubble.transform.parent = transform;
+		speech = (speechScript)speechBubble.GetComponent("speechScript");
 	}
 	
 	void Update()
 	{
-		/* basic dialogue system test */
-		speech.updateState("misc");
 		
 		if(isPanicked)
 		{
@@ -93,6 +87,10 @@ public class NPCAI : MonoBehaviour
 	
 	void Flee()
 	{
-		
+		speech.updateState("panic");
+		if (!nav.hasPath)
+		{
+			
+		}
 	}
 }
