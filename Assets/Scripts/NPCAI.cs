@@ -17,6 +17,7 @@ public class NPCAI : MonoBehaviour
 	private NavMeshAgent nav;
 	private NPCSight sight;
 	private GameObject player;
+	private GameObject exit;
 	
 	void Awake()
 	{
@@ -28,6 +29,7 @@ public class NPCAI : MonoBehaviour
 		speechBubble = (GameObject)Instantiate(speechBubble, transform.position + transform.up*2.4f, transform.rotation);
 		speechBubble.transform.parent = transform;
 		speech = (speechScript)speechBubble.GetComponent("speechScript");
+		exit = GameObject.FindWithTag("Exit");
 	}
 	
 	void Update()
@@ -79,7 +81,7 @@ public class NPCAI : MonoBehaviour
 	void Scream()
 	{
 		nav.Stop();
-		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), Time.deltaTime);
+		//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), Time.deltaTime);
 		npcSound.clip = screamSound;
 		npcSound.Play();
 		isPanicked = true;
@@ -90,7 +92,57 @@ public class NPCAI : MonoBehaviour
 		speech.updateState("panic");
 		if (!nav.hasPath)
 		{
+			if (transform.position.x < exit.transform.position.x)
+			{
+				xBound1 = transform.position.x;
+			}
+			else
+			{
+				xBound2 = transform.position.x;	
+			}
 			
+			if (transform.position.z < exit.transform.position.z)
+			{
+				zBound1 = transform.position.z;
+			}
+			else
+			{
+				zBound2 = transform.position.z;
+			}
+			
+			Vector3 dest = new Vector3(Random.Range(xBound1, xBound2), 0, Random.Range(zBound1, zBound2));
+			nav.SetDestination(dest);
+		}
+	}
+	
+	void OnTriggerEnter(Collider other)
+	{
+		if (isPanicked)
+		{
+			if (other.gameObject.CompareTag("Exit"))
+			{
+				nav.ResetPath();
+				nav.SetDestination(other.transform.position);
+			}
+		}
+	}
+	
+	void OnTriggerStay(Collider other)
+	{
+		if (isPanicked)
+		{
+			if (other.gameObject.CompareTag("Exit"))
+			{
+				RaycastHit hit;
+				Debug.DrawRay(transform.position + transform.up + transform.forward, transform.forward);
+				if (Physics.Raycast (transform.position + transform.up + transform.forward, transform.forward, out hit))
+				{
+					if (hit.collider.CompareTag("Exit") && hit.distance < 1)
+					{
+						gameObject.SetActive(false);	
+					}
+				}
+			}
 		}
 	}
 }
