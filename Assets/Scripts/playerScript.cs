@@ -3,14 +3,12 @@ using System.Collections;
 
 public class playerScript : MonoBehaviour {
 
-	public float meleeDistance = 1;
+	public float meleeDistance = 1.8f;
 	public Material bloodyMaterial;
-	public bool makingNoise = false;
 
 	private GameObject playerComponent;
 	private GameObject playerMesh;
     private Animator animator;
-    private bool isStabbing = false;
 	
 	//Given a distance, check if there's an object
 	//infront of our player. Returns collider
@@ -32,50 +30,46 @@ public class playerScript : MonoBehaviour {
 
 		playerMesh = playerComponent.transform.FindChild("player_mesh").gameObject;
     }
-	
+
+	// adapted from http://forum.unity3d.com/threads/165093-How-to-play-an-animation-only-once-using-Mecanim
+    IEnumerator PlayOneShot (string boolName) {
+        animator.SetBool(boolName, true);
+		// runs the code above the yield then exits (this function needs to be called within StartCoroutine())
+        yield return null;
+		// re-enters the function on the next frame at this location (once the animation has started playing)
+        animator.SetBool(boolName, false);
+    }
+
 	// Update is called once per frame
 	void Update () {
-		
-		makingNoise = false;
+
         // animation code
 		if(Input.GetMouseButtonDown(0)){
-            animator.SetBool("isStabbing", true);
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isIdle", false);
-            isStabbing = true;
-        }
+			StartCoroutine(PlayOneShot("isStabbing"));
 
-        if(Input.GetMouseButtonUp(0)){
-            animator.SetBool("isStabbing", false);
-            animator.SetBool("isWalking", true);
-            animator.SetBool("isIdle", false);
-            isStabbing = false;
-        }
-
-        // collision code
-        if (isStabbing) {
             Collider meleeVic = raycastForward(meleeDistance).collider;
 
             if (meleeVic) {
                 if (meleeVic.CompareTag("NPC")) {
                     GameObject npc = meleeVic.gameObject;
+
+					float distance = Vector3.Distance(npc.transform.position, transform.position);
+
                     NPCAI npcAI = (NPCAI)npc.GetComponent("NPCAI");
 
-					print ("meleed an NPC");
+					if (distance < meleeDistance) {
+						//Destroy(npc);
+						playerMesh.renderer.material = bloodyMaterial;
 
-					playerMesh.renderer.material = bloodyMaterial;
+						//playerComponent
 
-					//playerComponent
-
-                    if (!npcAI.isDead) 
-					{
-                       //print("Killed an NPC");
-						makingNoise = true;
-                    	npcAI.isDying = true;
-                    }
-                }
-            }
+	                    //if (!npcAI.isDead) {
+	                    //   print("Killed an NPC");
+	                    //   npcAI.isDead = true;
+	                    //}
+					}
+				}
+			}
         }
-
 	}
 }

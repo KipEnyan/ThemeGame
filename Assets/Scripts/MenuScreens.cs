@@ -8,6 +8,7 @@ public class MenuScreens : MonoBehaviour {
 	private GameObject player;
 	private string state = "mainmenu";
 	private GameVariables gameVariables;
+	public Texture grass_bg;
 	public Texture menu_bg;
 	public Texture win_bg;
 	public Texture lose_bg;
@@ -72,10 +73,13 @@ public class MenuScreens : MonoBehaviour {
 		/* draw mainmenu */
 		if(state == "mainmenu")
 		{
-			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), menu_bg);
+			grass_bg.wrapMode = TextureWrapMode.Repeat;
+			GUI.DrawTextureWithTexCoords(new Rect(0,0,Screen.width,Screen.height), grass_bg, new Rect(0, 0, Screen.width / grass_bg.width, Screen.height / grass_bg.height));
+			
+			GUI.DrawTexture (new Rect(Screen.width/2-menu_bg.width/2, Screen.height/2-menu_bg.height/2, menu_bg.width,menu_bg.height), menu_bg);
 			
 			/* play button */
-			if(GUI.Button(new Rect((Screen.width/2)-50, (Screen.height/2)-25, 100, 50), "Play", mainmenu_text))
+			if(GUI.Button(new Rect((Screen.width/2)-120, (Screen.height/2)+50, 100, 50), "Play", mainmenu_text))
 			{
 				state = "playing";
 				not_menu = true;
@@ -83,20 +87,20 @@ public class MenuScreens : MonoBehaviour {
 			}
 			
 			/* exit button */
-			if(GUI.Button(new Rect((Screen.width/2)-50, (Screen.height/2 + 75)-25, 100, 50), "Exit", mainmenu_text))
+			if(GUI.Button(new Rect((Screen.width/2)+115, (Screen.height/2)+115, 100, 50), "Exit", mainmenu_text))
 				Application.Quit();
 		}
 		
 		/* draw win or lose screens if we get to that state */
 		else if(state == "win")
 		{
-			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
-			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU LOST", paused_text);
+			// GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
+			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU HAVE SUCCEEDED", paused_text);
 		}
 		else if(state == "lose")
 		{
 			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
-			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "WINNER", paused_text);
+			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU WERE DISCOVERED", paused_text);
 		}
 		
 		/* draw pause screen */
