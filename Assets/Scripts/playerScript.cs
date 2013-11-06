@@ -3,10 +3,12 @@ using System.Collections;
 
 public class playerScript : MonoBehaviour {
 
-	public GameObject playerComponent;
-    public Animator animator;
 	public float meleeDistance = 1;
+	public Material bloodyMaterial;
 
+	private GameObject playerComponent;
+	private GameObject playerMesh;
+    private Animator animator;
     private bool isStabbing = false;
 	
 	//Given a distance, check if there's an object
@@ -23,7 +25,11 @@ public class playerScript : MonoBehaviour {
 	}
 
     void Start () {
+		playerComponent = transform.FindChild("Main Camera/player").gameObject;
+
         animator = playerComponent.GetComponent<Animator>();
+
+		playerMesh = playerComponent.transform.FindChild("player_mesh").gameObject;
     }
 	
 	// Update is called once per frame
@@ -54,6 +60,10 @@ public class playerScript : MonoBehaviour {
                     NPCAI npcAI = (NPCAI)npc.GetComponent("NPCAI");
 
 					print ("meleed an NPC");
+
+					playerMesh.renderer.material = bloodyMaterial;
+
+					//playerComponent
 
                     //if (!npcAI.isDead) {
                     //   print("Killed an NPC");
