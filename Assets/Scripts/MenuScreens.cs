@@ -107,7 +107,7 @@ public class MenuScreens : MonoBehaviour {
 				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
 				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG PERSON!", paused_text);
 			}
-			else if(gameVariables.win && gameVariables.lose)
+			else if(!gameVariables.win && !gameVariables.lose)
 			{
 				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
 				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG PERSON\nBUT GOT AWAY!", paused_text);

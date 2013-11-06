@@ -7,6 +7,7 @@ public class playerScript : MonoBehaviour {
 	public Material bloodyMaterial;
 	public bool makingNoise = false;
 
+	private GameObject gameController;
 	private GameObject playerComponent;
 	private GameObject playerMesh;
     private Animator animator;
@@ -25,6 +26,8 @@ public class playerScript : MonoBehaviour {
 	}
 
     void Start () {
+        gameController = GameObject.FindGameObjectWithTag("GameController");
+
 		playerComponent = transform.FindChild("Main Camera/player").gameObject;
 
         animator = playerComponent.GetComponent<Animator>();
@@ -51,6 +54,11 @@ public class playerScript : MonoBehaviour {
             Collider meleeVic = raycastForward(meleeDistance).collider;
 
             if (meleeVic) {
+				if (meleeVic.CompareTag("Exit")) {
+					print ("hit exit");
+					gameController.GetComponent<GameVariables>().gameOver = true;
+				}
+
                 if (meleeVic.CompareTag("NPC")) {
                     GameObject npc = meleeVic.gameObject;
 

@@ -9,5 +9,6 @@ public class GameVariables : MonoBehaviour {
     public List<GameObject> npcs;
 	public bool win = false;
 	public bool lose = false;
+	public bool gameOver = false;
 
 }
