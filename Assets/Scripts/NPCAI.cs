@@ -88,7 +88,12 @@ public class NPCAI : MonoBehaviour
 	
 	void Investigate()
 	{
+		nav.updatePosition = true;
 		nav.ResetPath();
+		isConversing = false;
+		speech.updateState("idle");
+		animator.SetBool("isTalking", false);
+		animator.SetBool("isWalking", true);
 		nav.SetDestination(player.transform.position);
 	}
 	
@@ -112,7 +117,7 @@ public class NPCAI : MonoBehaviour
 			nav.updatePosition = false;
 			animator.SetBool("isWalking", false);
 		}
-		if (timeConversing < conversationLength && !conversationPartner.GetComponent<NPCAI>().isDead)
+		if (timeConversing < conversationLength && isConversing == true)
 		{
 			nav.SetDestination(conversationPartner.transform.position);
 		}
@@ -150,7 +155,7 @@ public class NPCAI : MonoBehaviour
 		if (playerInSight)
 		{
 			gameController.GetComponent<GameVariables>().lose = true;
-			print ("Busted.");
+			//print ("Busted.");
 		}
 	}
 	

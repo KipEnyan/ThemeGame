@@ -7,35 +7,44 @@ public class NPCSight : MonoBehaviour
 	private NavMeshAgent nav;
 	private SphereCollider col;
 	private GameObject player;
+	private LayerMask playerMask;
 	private NPCAI ai;
 	
 	void Awake ()
 	{
 		ai = GetComponent<NPCAI>();
 		nav = GetComponent<NavMeshAgent> ();
-		col = GetComponent<SphereCollider> ();
+		col = GetComponentInChildren<SphereCollider> ();
 		player = GameObject.FindWithTag ("Player");
+	}
+	
+	void LateUpdate()
+	{
+		ai.npcInSight = false;	
 	}
 	
 	void OnTriggerStay (Collider other)
 	{
 		if (other.gameObject == player)
 		{
-			//print ("Player detected.");
 			ai.playerInSight = false;
+			//print ("Player detected.");
 			
-			Vector3 direction = other.transform.position - (transform.position + transform.up + transform.forward);
+			Vector3 direction = other.transform.position - (transform.position + transform.up * 1.75f + transform.forward * 0.5f);
 			float angle = Vector3.Angle (direction, transform.forward);
 			
 			if (angle < FOV * 0.5f)
 			{
 				//print ("Player in FOV.");
 				RaycastHit hit;
-				//Debug.DrawRay(transform.position + transform.up + transform.forward, direction);
+				//Debug.DrawRay(transform.position + transform.up * 1.75f + transform.forward * 0.5f, direction);
+
 				
-				if (Physics.Raycast (transform.position + transform.up + transform.forward, direction.normalized, out hit, col.radius)) {
+				if (Physics.Raycast (transform.position + transform.up * 1.75f + transform.forward * 0.5f, direction.normalized, out hit, col.radius))
+				{	
+					//print (hit.collider.gameObject.transform.root);
 					//Debug.DrawLine(transform.position + transform.up + transform.forward, other.transform.position);
-					if (hit.collider.gameObject == player)
+					if (hit.collider.gameObject.transform.root.gameObject == player)
 					{
 						//print ("Raycast hit player.");
 						ai.playerInSight = true;
@@ -48,26 +57,26 @@ public class NPCSight : MonoBehaviour
 				ai.playerIsHeard = true;
 				
 				//print ("I can hear you.");
-			} 
-			else
-			{
+			}
+			else{
 				ai.playerIsHeard = false;	
 			}
 		} 
 		
-		else if (other.gameObject.CompareTag("NPC")) 
+		if (other.gameObject.CompareTag("NPC")) 
 		{
-			ai.npcInSight = false;
 		
-			Vector3 direction = other.transform.position - (transform.position + transform.up + transform.forward);
+			Vector3 direction = other.transform.position + other.transform.up - (transform.position + transform.up * 1.75f + transform.forward * 0.5f);
 			float angle = Vector3.Angle (direction, transform.forward);
 		
 			if (angle < FOV * 0.5f)
 			{
 				RaycastHit hit;
-			
-				if (Physics.Raycast (transform.position + transform.up + transform.forward, direction.normalized, out hit, col.radius))
+				//Debug.DrawRay(transform.position + transform.up * 1.75f + transform.forward * 0.5f, direction);
+				if (Physics.Raycast (transform.position + transform.up * 1.75f + transform.forward * 0.5f, direction.normalized, out hit, col.radius))
 				{
+					//Debug.DrawRay(transform.position + transform.up * 1.75f + transform.forward * 0.5f, direction);
+					//print (hit.collider.gameObject.name);
 					if (hit.collider.gameObject.CompareTag("NPC"))
 					{
 						ai.npcInSight = true;
