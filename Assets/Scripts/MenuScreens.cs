@@ -67,8 +67,10 @@ public class MenuScreens : MonoBehaviour {
 	
 	void endGame()
 	{
-		state = "mainmenu";
-		flipPause();
+		if(!paused){
+			not_menu = false;
+			flipPause();
+		}
 	}
 	
 	/* draw GUI elements of the different states */
@@ -76,7 +78,7 @@ public class MenuScreens : MonoBehaviour {
 	{
 		
 		/* draw mainmenu */
-		if(state == "mainmenu")
+		if(state == "mainmenu" && !gameVariables.gameOver)
 		{
 			grass_bg.wrapMode = TextureWrapMode.Repeat;
 			GUI.DrawTextureWithTexCoords(new Rect(0,0,Screen.width,Screen.height), grass_bg, new Rect(0, 0, Screen.width / grass_bg.width, Screen.height / grass_bg.height));
@@ -97,28 +99,30 @@ public class MenuScreens : MonoBehaviour {
 		}
 		
 		if(gameVariables.gameOver){
+			mainmenu_text.fontSize = 35;
 			/* draw win or lose screens if we get to that state */
 			if(gameVariables.win && !gameVariables.lose)
 			{
-				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED YOUR TARGET\nAND GOT AWAY!", paused_text);
+				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED YOUR TARGET\nAND GOT AWAY!", mainmenu_text);
 				endGame();
 			}
 			else if(gameVariables.win && gameVariables.lose)
 			{
 				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
-				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED YOUR TARGET\nBUT GOT CAUGHT!", paused_text);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED YOUR TARGET\nBUT GOT CAUGHT!", mainmenu_text);
 				endGame();
 			}
 			else if(!gameVariables.win && gameVariables.lose)
 			{
 				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
-				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG PERSON!", paused_text);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG\nPERSON AND GOT CAUGHT!", mainmenu_text);
 				endGame();
 			}
 			else if(!gameVariables.win && !gameVariables.lose)
 			{
 				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
-				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG PERSON\nBUT GOT AWAY!", paused_text);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU ESCAPED, BUT DIDN'T\nKILL YOUR TARGET!", mainmenu_text);
 				endGame();
 			}
 		}
