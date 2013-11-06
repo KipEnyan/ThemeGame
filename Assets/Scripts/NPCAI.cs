@@ -22,6 +22,8 @@ public class NPCAI : MonoBehaviour
 	public float zBound1 = 0f;
 	public float zBound2 = 50f;
 	public AudioClip screamSound;
+	public AudioClip dieSound;
+	public AudioClip leaveSound;
 	public GameObject lastNPCSeen;
 	public GameObject conversationPartner;
 	public GameObject speechBubble;
@@ -137,12 +139,12 @@ public class NPCAI : MonoBehaviour
 	
 	void Scream()
 	{
-		nav.Stop();
+		nav.ResetPath();
 		//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), Time.deltaTime);
 		npcSound.clip = screamSound;
 		npcSound.Play();
 		isPanicked = true;
-		animator.SetBool("isTalking",true);
+		animator.SetBool("isTalking", false);
 	}
 	
 	void Flee()
@@ -179,6 +181,10 @@ public class NPCAI : MonoBehaviour
 		nav.Stop();
 		nav.ResetPath();
 		animator.SetBool("isDying", true);
+		animator.SetBool("isWalking", false);
+		animator.SetBool("isTalking", false);
+		npcSound.clip = dieSound;
+		npcSound.Play();
 		isDying = false;
 		isDead = true;
 	}
@@ -267,6 +273,8 @@ public class NPCAI : MonoBehaviour
 				{
 					if (hit.collider.CompareTag("Exit") && hit.distance < 1)
 					{
+						npcSound.clip = leaveSound;
+						npcSound.Play();
 						gameObject.SetActive(false);
 					}
 				}
