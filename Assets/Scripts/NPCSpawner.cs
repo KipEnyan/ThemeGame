@@ -165,6 +165,7 @@ public class NPCSpawner : MonoBehaviour {
         int targetNumber = Random.Range(0, npcs.Count);
         gameVariables.targetNumber = targetNumber;
         gameVariables.target = npcs[targetNumber];
+		GameObject.Find ("guiTargetText").guiText.text = "Your target is " + ((NPCProperties)npcs[targetNumber].GetComponent("NPCProperties")).npcName;
     }
 
     void Update() {
