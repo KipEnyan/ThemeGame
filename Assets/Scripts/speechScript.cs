@@ -8,6 +8,7 @@ public class speechScript : MonoBehaviour {
 	private float dialogueReset;
 	private float dialogueTimer;
 	public string npcState = "idle";
+	private string lastState = "idle";
 	
 
 	// Use this for initialization
@@ -28,6 +29,9 @@ public class speechScript : MonoBehaviour {
 		transform.LookAt( cameraToLookAt.transform.position );
 		transform.Rotate(0, 180, 0);
 		
+		if(npcState != lastState)
+			dialogueTimer = 0;
+		
 		/* update billboard text */
 		dialogueTimer -= Time.deltaTime;
 		if(dialogueTimer <= 0){
@@ -47,6 +51,7 @@ public class speechScript : MonoBehaviour {
 	/* update speech state... */
 	public void updateState(string someState)
 	{
+		lastState = npcState;
 		npcState = someState;
 		return;
 	}
