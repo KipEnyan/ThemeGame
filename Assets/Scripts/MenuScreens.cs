@@ -95,12 +95,12 @@ public class MenuScreens : MonoBehaviour {
 		else if(state == "win")
 		{
 			// GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
-			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU HAVE BEEN DISCOVERED", paused_text);
+			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU HAVE SUCCEEDED", paused_text);
 		}
 		else if(state == "lose")
 		{
 			// GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
-			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU HAVE SUCCEEDED", paused_text);
+			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU HAVE BEEN DISCOVERED", paused_text);
 		}
 		
 		/* draw pause screen */
