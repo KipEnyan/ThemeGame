@@ -7,15 +7,21 @@ public class MenuScreens : MonoBehaviour {
 	private bool not_menu;
 	private GameObject player;
 	private string state = "mainmenu";
+	private GameVariables gameVariables;
 	public Texture menu_bg;
+	public Texture win_bg;
+	public Texture lose_bg;
 	public GUIStyle mainmenu_text;
 	public GUIStyle paused_text;
 	
 	void Awake ()
 	{
+		/* setup crap */
 		paused = false;
 		not_menu = false;
 		player = GameObject.FindWithTag("Player");
+        GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
+		gameVariables = gameController.GetComponent<GameVariables>();
 		
 		/* use the main menu font as a base for the pause text */
 		paused_text = new GUIStyle(mainmenu_text);
@@ -29,12 +35,17 @@ public class MenuScreens : MonoBehaviour {
 	void Update ()
 	{
 		/* pause/unpase the game */
-		if(Input.GetKeyDown ("p") && not_menu)
+		if(Input.GetKeyUp ("p") && not_menu)
 			flipPause();
 		
-		/* quit game if paused and escape is hit */
-		if(Input.GetKeyDown (KeyCode.Escape) && paused)
+		/* quit game if escape is hit (at the pause screen, or win/loss screen) */
+		if(Input.GetKeyUp (KeyCode.Escape) && (paused || state == "win" || state == "lose"))
 			Application.Quit();
+		
+		if(gameVariables.win)
+			state = "win";
+		else if (gameVariables.lose)
+			state = "lose";
 	}
 	
 	/* pause or upauses the game */
@@ -74,6 +85,18 @@ public class MenuScreens : MonoBehaviour {
 			/* exit button */
 			if(GUI.Button(new Rect((Screen.width/2)-50, (Screen.height/2 + 75)-25, 100, 50), "Exit", mainmenu_text))
 				Application.Quit();
+		}
+		
+		/* draw win or lose screens if we get to that state */
+		else if(state == "win")
+		{
+			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
+			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU LOST", paused_text);
+		}
+		else if(state == "lose")
+		{
+			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
+			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "WINNER", paused_text);
 		}
 		
 		/* draw pause screen */
