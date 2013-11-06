@@ -33,7 +33,7 @@ public class dialogueManager : MonoBehaviour {
 		
 		/* dynamically tweak sentences to keep things interesting */
 		NPCProperties npc_props;
-		if(speech_state == "hint" && (Random.Range(0,1) == 0))		//TODO: REBALANCE
+		if(speech_state == "hint" && (Random.Range(0,2) == 0))		//TODO: REBALANCE
 			npc_props = (NPCProperties)NPCInfo.target.GetComponent("NPCProperties");
 		else
 			npc_props = (NPCProperties)NPCInfo.npcs[Random.Range(0, NPCInfo.npcs.Count - 1)].GetComponent("NPCProperties");
@@ -68,7 +68,7 @@ public class dialogueManager : MonoBehaviour {
 		string some_dialogue;
 		
 		if(speech_state == "converse")
-			speech_state = (Random.Range(0,3) > 0) ? "misc" : "hint";	//TODO: REBALANCE ... 25% chance to spew hint
+			speech_state = (Random.Range(0,1) > 0) ? "misc" : "hint";	//TODO: REBALANCE ... 25% chance to spew hint
 
 		
 		/* select dialogue for corresponding conversation state */
