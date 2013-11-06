@@ -45,10 +45,6 @@ public class MenuScreens : MonoBehaviour {
 		if(Input.GetKeyUp (KeyCode.Escape) && (paused || state == "win" || state == "lose"))
 			Application.Quit();
 		
-		if(gameVariables.win)
-			state = "win";
-		else if (gameVariables.lose)
-			state = "lose";
 	}
 	
 	/* pause or upauses the game */
@@ -94,16 +90,28 @@ public class MenuScreens : MonoBehaviour {
 				Application.Quit();
 		}
 		
-		/* draw win or lose screens if we get to that state */
-		else if(state == "win")
-		{
-			// GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
-			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU HAVE SUCCEEDED", paused_text);
-		}
-		else if(state == "lose")
-		{
-			GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
-			GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU WERE DISCOVERED", paused_text);
+		if(gameVariables.gameOver){
+			/* draw win or lose screens if we get to that state */
+			if(gameVariables.win && !gameVariables.lose)
+			{
+				// GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), win_bg);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED YOUR TARGET\nAND GOT AWAY!", paused_text);
+			}
+			else if(gameVariables.win && gameVariables.lose)
+			{
+				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED YOUR TARGET\nBUT GOT CAUGHT!", paused_text);
+			}
+			else if(!gameVariables.win && gameVariables.lose)
+			{
+				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG PERSON!", paused_text);
+			}
+			else if(gameVariables.win && gameVariables.lose)
+			{
+				GUI.DrawTexture (new Rect(0,0,Screen.width,Screen.height), lose_bg);
+				GUI.Label (new Rect(Screen.width/2, Screen.height/2, 0, 0), "YOU KILLED THE WRONG PERSON\nBUT GOT AWAY!", paused_text);
+			}
 		}
 		
 		/* draw pause screen */
