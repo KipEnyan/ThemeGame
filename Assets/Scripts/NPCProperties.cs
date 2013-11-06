@@ -4,10 +4,28 @@ using System.Collections;
 public class NPCProperties : MonoBehaviour {
 
     // NPCSpawner sets these, other logic will use these to identify this NPC
-	public bool isDead = false;
-    public int materialNumber;
+    public string npcName;
+
+    public int skinColorNumber;
+    public Color skinColor;
+
+    public int hairNumber;
+    public int hairColorNumber;
+    public Color hairColor;
+
+    public int suitColorNumber;
+    public Color suitColor;
+    public string suitColorName;
+
+    public int tieColorNumber;
+    public Color tieColor;
+    public string tieColorName;
+
     public int hatNumber;
-    public Color tintColor;
+    public string hatName; // hatColorName + ' ' + hatName
+    public int hatColorNumber;
+    public Color hatColor;
+    public string hatColorName;
 
     void Start() {
 

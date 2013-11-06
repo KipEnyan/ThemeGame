@@ -4,31 +4,55 @@ using System.Collections;
 public class speechScript : MonoBehaviour {
 	
 	public Camera cameraToLookAt;
-	public float dialogSwitchTime = 3.0f;
-	private float dialogTimer;
+	private dialogueManager dialogueMgr;
+	private float dialogueReset;
+	private float dialogueTimer;
+	public string npcState = "idle";
+	private string lastState = "idle";
 	
-	public string[] dialog = {"Hey! How are you this fine evening?",
-							"Scotch? I'm more of a whisky kinda guy."};
-	
+
 	// Use this for initialization
-	void Start () {
-		dialogTimer = dialogSwitchTime;
+	void Start () 
+	{
+        GameObject gameController;
+        gameController = GameObject.FindGameObjectWithTag("GameController");
+		dialogueMgr = (dialogueManager)gameController.GetComponent("dialogueManager");
+		cameraToLookAt = Camera.main;
+		dialogueReset = 5f;
+		dialogueTimer = dialogueReset;
 	}
 	
+	void Update () 
+	{
 	
-	void Update () {
-	
-		//Track speech billboard towards player in the XY direction
+		/* Track speech billboard towards player in the XY direction */
 		transform.LookAt( cameraToLookAt.transform.position );
 		transform.Rotate(0, 180, 0);
 		
-		//Switch dialog text after some amount of time
-		dialogTimer -= Time.deltaTime;
-		if(dialogTimer <= 0){
-			TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
-			temp.text = dialog[Random.Range(0, dialog.Length)];
-			dialogTimer = dialogSwitchTime;
-		}
+		if(npcState != lastState)
+			dialogueTimer = 0;
 		
+		/* update billboard text */
+		dialogueTimer -= Time.deltaTime;
+		if(dialogueTimer <= 0){
+			string someText = dialogueMgr.getDialogue(npcState);
+			setText (someText);
+		}
+		lastState = npcState;
+	}
+	
+	public void setText(string someText)
+	{
+		TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
+		temp.text = someText;
+		dialogueTimer = dialogueReset;
+	}
+	
+	/* update speech state... */
+	public void updateState(string someState)
+	{
+		lastState = npcState;
+		npcState = someState;
+		return;
 	}
 }
