@@ -154,12 +154,16 @@ ModelImporter:
     400146: toeIK
     400148: toeIK 1
     2300000: knife
+    2300002: player_mesh
     3300000: knife
+    3300002: player_mesh
     4300000: knife
     4300002: base_mesh
     4300004: player
     4300006: player_mesh
-    7400000: player_idle
+    7400000: player_walk
+    7400002: player_idle
+    7400004: player_stab
     9500000: //RootNode
     13700000: base_mesh
     13700002: player
@@ -177,10 +181,52 @@ ModelImporter:
     animationScaleError: .5
     animationWrapMode: 0
     clipAnimations:
-    - name: player_idle
+    - name: player_walk
       takeName: Take 001
       firstFrame: 1
       lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: player_idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 1.10000002
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      transformMask: []
+    - name: player_stab
+      takeName: Take 001
+      firstFrame: 25
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
