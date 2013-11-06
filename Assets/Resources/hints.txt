@@ -1,3 +1,5 @@
-Wow, aren't you lucky, got a hint for you. Your target's name is {npc-name}
-The guy with a {hat} hat is the man you're looking for.
-These hints are OP.
+I wish I had a {hat} hat as nice as {npc-name}'s, it's pretty slick.
+Need to get myself a {tie-color} tie just like {npc-name}.
+Have you met my friend {npc-name}? He has a {hat} hat on.
+{npc-name} got a {suit-color} suit, looks great with his tie.
+I brought {npc-name} along for tonight, I lent him my {hat} hat for the party.
