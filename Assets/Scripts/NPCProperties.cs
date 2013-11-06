@@ -24,7 +24,10 @@ public class NPCProperties : MonoBehaviour {
     public string tieColorName;
 
     public int hatNumber;
-    public string hatName;
+    public string hatName; // hatColorName + ' ' + hatName
+    public int hatColorNumber;
+    public Color hatColor;
+    public string hatColorName;
 
     void Start() {
 
