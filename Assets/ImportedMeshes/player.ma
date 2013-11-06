@@ -1,6 +1,6 @@
 //Maya ASCII 2013 scene
 //Name: player.ma
-//Last modified: Tue, Nov 05, 2013 08:37:35 PM
+//Last modified: Tue, Nov 05, 2013 09:07:11 PM
 //Codeset: 1252
 requires maya "2013";
 requires "stereoCamera" "10.0";
@@ -13,15 +13,15 @@ fileInfo "osv" "Microsoft Windows 7 Enterprise Edition, 64-bit Windows 7 Service
 fileInfo "license" "student";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -2.1486114290351588 1.8999947853685553 0.95837735005161162 ;
-	setAttr ".r" -type "double3" -26.738416757754806 -68.999999999998622 0 ;
+	setAttr ".t" -type "double3" -1.4069782702396567 1.4701369907889088 1.0720341097578197 ;
+	setAttr ".r" -type "double3" -12.338416757738042 -409.79999999995192 1.2318989849961397e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999986;
 	setAttr ".ncp" 0.001;
 	setAttr ".fcp" 100;
 	setAttr ".fd" 0.05;
-	setAttr ".coi" 2.3360159491611219;
+	setAttr ".coi" 1.6487942991639652;
 	setAttr ".ow" 0.1;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
@@ -371,7 +371,7 @@ createNode orientConstraint -n "r_wrist_orientConstraint1" -p "r_wrist";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 89.121498445281745 0.041254927285463316 -4.0531804428924731 ;
+	setAttr ".lr" -type "double3" 89.121498445281802 0.041254927285451 -4.0531804428924856 ;
 	setAttr ".o" -type "double3" -89.119296956920749 4.0520706929420021 0.10349780532758836 ;
 	setAttr ".rsrr" -type "double3" -6.3611093629270335e-015 -4.4139062980501586e-032 
 		-7.9513867036587919e-016 ;
@@ -412,7 +412,7 @@ createNode orientConstraint -n "r_forearm_orientConstraint1" -p "r_forearm";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 89.121498445281745 0.041254927285463316 -4.0531804428924731 ;
+	setAttr ".lr" -type "double3" 89.121498445281802 0.041254927285451 -4.0531804428924856 ;
 	setAttr ".o" -type "double3" -89.119296956920749 4.0520706929420021 0.10349780532758836 ;
 	setAttr ".rsrr" -type "double3" -6.3611093629270335e-015 -4.4139062980501586e-032 
 		-7.9513867036587919e-016 ;
@@ -431,7 +431,7 @@ createNode orientConstraint -n "r_elbow_orientConstraint1" -p "r_elbow";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 88.986041753244834 -29.954858432756712 6.4537789645119465 ;
+	setAttr ".lr" -type "double3" 65.633405837313305 -18.011629161514385 60.102082817990322 ;
 	setAttr ".o" -type "double3" -89.119296956920778 4.0520706929419994 0.10349780532758757 ;
 	setAttr ".rsrr" -type "double3" -1.2532702747651137e-014 2.9829344284856296e-016 
 		10 ;
@@ -450,7 +450,7 @@ createNode orientConstraint -n "r_humerous_orientConstraint1" -p "r_arm";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 37.696158942981441 -3.3912682379814996 87.024115361976087 ;
+	setAttr ".lr" -type "double3" 37.620795275610845 0.56296570223986597 90.075322380650746 ;
 	setAttr ".o" -type "double3" -89.91601152456839 -6.0111687411696311 7.6116378996241325 ;
 	setAttr ".rsrr" -type "double3" 8.9690412986807998e-015 -2.1176995593865882e-015 
 		-6.0000000000000044 ;
@@ -915,7 +915,7 @@ createNode parentConstraint -n "right_handCTRL_parentConstraint1" -p "right_hand
 	setAttr ".tg[0].tot" -type "double3" 1.4210854715202004e-016 -1.7763568394002505e-017 
 		0 ;
 	setAttr ".tg[0].tor" -type "double3" 89.12149844528173 0.041254927285470595 -4.05318044289249 ;
-	setAttr ".lr" -type "double3" -96.389166945416235 135.22109054860795 -35.490525989068075 ;
+	setAttr ".lr" -type "double3" -42.465853108438509 155.6093672322113 23.912260649048839 ;
 	setAttr ".rst" -type "double3" 1.4210854715202004e-016 -1.4210854715202004e-016 
 		-8.8817841970012525e-018 ;
 	setAttr ".rsrr" -type "double3" 5.7026351515302923e-015 9.4967952693985446e-031 
@@ -1475,7 +1475,7 @@ createNode script -n "uiConfigurationScriptNode";
 		+ "\t\t\t\t$configName;\n\n            setNamedPanelLayout (localizedPanelLabel(\"Current Layout\"));\n        }\n\n        panelHistory -e -clear mainPanelHistory;\n        setFocus `paneLayout -q -p1 $gMainPane`;\n        sceneUIReplacement -deleteRemaining;\n        sceneUIReplacement -clear;\n\t}\n\n\ngrid -spacing 0.05 -size 0.12 -divisions 5 -displayAxes yes -displayGridLines yes -displayDivisionLines yes -displayPerspectiveLabels no -displayOrthographicLabels no -displayAxesBold yes -perspectiveLabelPosition axis -orthographicLabelPosition edge;\nviewManip -drawCompass 0 -compassAngle 0 -frontParameters \"\" -homeParameters \"\" -selectionLockParameters \"\";\n}\n");
 	setAttr ".st" 3;
 createNode script -n "sceneConfigurationScriptNode";
-	setAttr ".b" -type "string" "playbackOptions -min 24 -max 48 -ast 1 -aet 48 ";
+	setAttr ".b" -type "string" "playbackOptions -min 1 -max 48 -ast 1 -aet 48 ";
 	setAttr ".st" 6;
 createNode displayLayer -n "items";
 	setAttr ".do" 4;
@@ -1496,7 +1496,7 @@ createNode shadingEngine -n "lambert3SG";
 	setAttr ".ro" yes;
 createNode materialInfo -n "materialInfo2";
 createNode file -n "file2";
-	setAttr ".ftn" -type "string" "C:/Users/tamb/Dropbox/Homework/GameDev/3/textures/base.png";
+	setAttr ".ftn" -type "string" "C:/Users/tamb/Dropbox/Homework/GameDev/3/textures/player.png";
 createNode place2dTexture -n "place2dTexture2";
 createNode displayLayer -n "joints";
 	setAttr ".dt" 2;
@@ -1593,29 +1593,27 @@ createNode animCurveTA -n "shouldersCTRL_rotateZ";
 createNode animCurveTA -n "right_shoulderCTRL_rotateY";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 5 ".ktv[0:4]"  0 0 1 85.006358188708617 11 80 24 85.006358188708617
-		 42 85.006358188708617;
+	setAttr -s 7 ".ktv[0:6]"  0 0 1 90 11 80 24 90 25 90 29 90 33 90;
 createNode animCurveTA -n "right_shoulderCTRL_rotateZ";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  0 59.999999999999993 24 59.999999999999993
-		 42 59.999999999999993;
+	setAttr -s 2 ".ktv[0:1]"  0 59.999999999999993 24 59.999999999999993;
 createNode animCurveTA -n "right_elbowCTRL_rotateX";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  0 0 25 0 42 0 48 0;
+	setAttr -s 3 ".ktv[0:2]"  0 0 25 0 48 0;
 createNode animCurveTA -n "right_elbowCTRL_rotateY";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 8 ".ktv[0:7]"  0 0 24 0 25 0 29 -50 36 -50 40 -25 42 -25
-		 48 -25;
-	setAttr -s 8 ".kit[1:7]"  3 18 18 18 18 18 18;
-	setAttr -s 8 ".kot[1:7]"  5 18 18 18 18 18 18;
+	setAttr -s 9 ".ktv[0:8]"  0 0 1 50 24 50 25 0 29 59.999999999999993
+		 33 59.999999999999993 36 -12.000000000000002 40 -12.000000000000002 48 -12.000000000000002;
+	setAttr -s 9 ".kit[2:8]"  3 18 18 18 18 18 18;
+	setAttr -s 9 ".kot[2:8]"  5 18 18 18 18 18 18;
 createNode animCurveTA -n "right_elbowCTRL_rotateZ";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  0 29.999999999999996 25 29.999999999999996
-		 42 29.999999999999996 48 29.999999999999996;
+	setAttr -s 3 ".ktv[0:2]"  0 29.999999999999996 25 29.999999999999996
+		 48 29.999999999999996;
 createNode animCurveTU -n "right_handCTRL_Curl";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
@@ -2548,6 +2546,17 @@ createNode skinCluster -n "skinCluster1";
 	setAttr ".bm" 0;
 	setAttr ".ucm" yes;
 createNode tweak -n "tweak2";
+	setAttr -s 22 ".vl[0].vt[0:21]" -type "float3"  -7.6293944e-008 0.021629624 
+		-0.16828337 -6.6757202e-008 0.021629626 -0.16828337 -9.536743e-009 -0.043016829 -0.16828337 
+		-7.6293944e-008 -0.043016829 -0.16828337 0 -0.043016843 0.15547699 -9.5367433e-008 
+		-0.043016829 0.15547699 5.7220458e-008 0.021629633 0.15547699 -9.5367433e-008 0.021629624 
+		0.15547706 -2.8610229e-008 0.075042136 -0.20920435 3.8146972e-008 0.075042136 -0.20920435 
+		1.1444092e-007 -0.043016866 -0.20920435 -2.8610229e-008 -0.043016791 -0.20920435 
+		4.7683717e-008 -0.043016866 -0.16828337 -3.8146972e-008 -0.043016795 0.15547702 -5.7220458e-008 
+		0.021629624 0.15547699 -5.7220458e-008 0.021629624 -0.16828337 -3.8146972e-008 0.042351171 
+		-0.59420502 -3.8146972e-008 -0.043016791 -0.59420502 -7.6293944e-008 -0.043016795 
+		-0.59420502 0 0.042351138 -0.59420502 7.6293944e-008 -0.027579401 -0.71738362 -1.1444092e-007 
+		-0.027579352 -0.7173835;
 createNode objectSet -n "skinCluster1Set";
 	setAttr ".ihi" 0;
 	setAttr ".vo" yes;
@@ -2669,23 +2678,22 @@ createNode dagPose -n "bindPose1";
 createNode animCurveTA -n "right_shoulderCTRL_rotateX";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 2 ".ktv[0:1]"  24 -8.58574129682234e-015 42 -8.58574129682234e-015;
+	setAttr ".ktv[0]"  24 -8.58574129682234e-015;
 createNode animCurveTA -n "right_wristCTRL_rotateX";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 2 ".ktv[0:1]"  25 0 42 0;
+	setAttr ".ktv[0]"  25 0;
 createNode animCurveTA -n "right_wristCTRL_rotateY";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 4 ".ktv[0:3]"  25 0 33 -14.999999999999998 40 -29.999999999999996
-		 42 -29.999999999999996;
+	setAttr -s 3 ".ktv[0:2]"  25 0 35 0 40 -10;
 createNode animCurveTA -n "right_wristCTRL_rotateZ";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 2 ".ktv[0:1]"  25 0 42 0;
+	setAttr ".ktv[0]"  25 0;
 select -ne :time1;
-	setAttr ".o" 25;
-	setAttr ".unw" 25;
+	setAttr ".o" 1;
+	setAttr ".unw" 1;
 select -ne :renderPartition;
 	setAttr -s 5 ".st";
 select -ne :initialShadingGroup;
