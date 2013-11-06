@@ -55,7 +55,6 @@ public class playerScript : MonoBehaviour {
 
             if (meleeVic) {
 				if (meleeVic.CompareTag("Exit")) {
-					print ("hit exit");
 					gameController.GetComponent<GameVariables>().gameOver = true;
 				}
 

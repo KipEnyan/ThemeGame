@@ -14,7 +14,11 @@ public class SpriteSheet : MonoBehaviour
     private Renderer _myRenderer;
     private int _lastIndex = -1;
 
+	private Animator npcAnimator;
+
     void Start () {
+		npcAnimator = gameObject.GetComponent<Animator>();
+
         _size = new Vector2 (1.0f / _columns, 1.0f / _rows);
         GameObject base_mesh = transform.FindChild("base_mesh").gameObject;
         _myRenderer = base_mesh.renderer;
@@ -24,6 +28,8 @@ public class SpriteSheet : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+
+		isTalking = npcAnimator.GetBool("isTalking");
 
         int index;
         if (isTalking) {
