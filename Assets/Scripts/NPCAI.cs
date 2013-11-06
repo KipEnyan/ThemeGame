@@ -112,7 +112,7 @@ public class NPCAI : MonoBehaviour
 			nav.updatePosition = false;
 			animator.SetBool("isWalking", false);
 		}
-		if (timeConversing < conversationLength)
+		if (timeConversing < conversationLength && !conversationPartner.GetComponent<NPCAI>().isDead)
 		{
 			nav.SetDestination(conversationPartner.transform.position);
 		}
@@ -141,16 +141,17 @@ public class NPCAI : MonoBehaviour
 	
 	void Scream()
 	{
-		if(playerInSight)
-		{
-			gameController.GetComponent<GameVariables>().lose = true;
-		}
 		nav.ResetPath();
 		//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), Time.deltaTime);
 		npcSound.clip = screamSound;
 		npcSound.Play();
 		isPanicked = true;
 		animator.SetBool("isTalking", false);
+		if (playerInSight)
+		{
+			gameController.GetComponent<GameVariables>().lose = true;
+			print ("Busted.");
+		}
 	}
 	
 	void Flee()
@@ -284,8 +285,6 @@ public class NPCAI : MonoBehaviour
 				{
 					if (hit.collider.CompareTag("Exit") && hit.distance < 1)
 					{
-						npcSound.clip = leaveSound;
-						npcSound.Play();
 						gameObject.SetActive(false);
 					}
 				}
