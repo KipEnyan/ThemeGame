@@ -22,6 +22,9 @@ public class NPCSpawner : MonoBehaviour {
     public List<GameObject> hatChoices;
     public List<string> hatChoiceNames;
 
+    public List<Color> hatColors;
+    public List<string> hatColorNames;
+
     private int currentName = 0;
     private string [] nameChoices;
 
@@ -137,10 +140,19 @@ public class NPCSpawner : MonoBehaviour {
             // ------------------------------------------------------
 
             // ------------------------------------------------------
-            // Pick random hat and attach it
+            // Pick random hat, tint it, and attach it
             int randomHat = Random.Range(0, hatChoices.Count);
             npcProperties.hatNumber = randomHat;
             GameObject hat = (GameObject)Instantiate(hatChoices[randomHat]);
+            int randomHatColor = Random.Range(0, hatColors.Count);
+            Color hatColor = hatColors[randomHatColor];
+            npcProperties.hatColorNumber = randomHatColor;
+            npcProperties.hatColor = hatColor;
+            npcProperties.hatColorName = hatColorNames[randomHatColor];
+            npcProperties.hatName = hatColorNames[randomHatColor] + ' ' + hatChoiceNames[randomHat];
+            Material hatMaterial = new Material(hat.renderer.material);
+            hatMaterial.SetColor("_Color", hatColor);
+            hat.renderer.material = hatMaterial;
             hat.transform.parent = head.transform;
             hat.transform.localPosition = new Vector3(1.47f, 0, 0);
             hat.transform.forward = npc.transform.forward;
