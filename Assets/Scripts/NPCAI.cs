@@ -33,6 +33,7 @@ public class NPCAI : MonoBehaviour
 	private GameObject player;
 	private GameObject exit;
 	private Animator animator;
+	private GameObject gameController;
 	
 	void Awake()
 	{
@@ -46,6 +47,7 @@ public class NPCAI : MonoBehaviour
 		exit = GameObject.FindWithTag("Exit");
 		animator = GetComponent<Animator>();
 		lastNPCSeen = gameObject;
+		gameController = GameObject.FindWithTag("GameController");
 	}
 	
 	void Update()
@@ -139,6 +141,10 @@ public class NPCAI : MonoBehaviour
 	
 	void Scream()
 	{
+		if(playerInSight)
+		{
+			gameController.GetComponent<GameVariables>().lose = true;
+		}
 		nav.ResetPath();
 		//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(player.transform.position - transform.position), Time.deltaTime);
 		npcSound.clip = screamSound;
@@ -183,10 +189,15 @@ public class NPCAI : MonoBehaviour
 		animator.SetBool("isDying", true);
 		animator.SetBool("isWalking", false);
 		animator.SetBool("isTalking", false);
+		speech.updateState("idle");
 		npcSound.clip = dieSound;
 		npcSound.Play();
 		isDying = false;
 		isDead = true;
+		if (gameController.GetComponent<GameVariables>().target == gameObject)
+		{
+			gameController.GetComponent<GameVariables>().win = true;
+		}
 	}
 	
 	bool DeadNPCInSight()
