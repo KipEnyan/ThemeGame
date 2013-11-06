@@ -7,7 +7,7 @@ public class speechScript : MonoBehaviour {
 	private dialogueManager dialogueMgr;
 	private float dialogueReset;
 	private float dialogueTimer;
-	public string npcState = "";
+	public string npcState = "idle";
 	
 
 	// Use this for initialization
@@ -30,12 +30,7 @@ public class speechScript : MonoBehaviour {
 		dialogueTimer -= Time.deltaTime;
 		if(dialogueTimer <= 0){
 			TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
-			
-			if(npcState == "")
-				temp.text = "";
-			else
-				temp.text = dialogueMgr.getDialogue(npcState);
-			
+			temp.text = dialogueMgr.getDialogue(npcState);
 			dialogueReset = Random.Range(3.0f,6.5f);
 			dialogueTimer = dialogueReset;
 		}

@@ -7,3 +7,24 @@ Beautiful weather tonight, isn't it?
 I like your costume!
 Quite the party!
 Some of the costumes here are quiet exquisite.
+I’m delighted you found your way here.
+It’s a pleasure to meet you, stranger.
+Welcome, please help yourself to some refreshment.
+Nice to see you.
+Long time no see.
+What have you been up to tonight?
+How are things?
+What's new?
+I don't think we've met.
+Have you been here long?
+Have you tried the cheese dip yet?
+Where did you get your costume?
+Your hat really suits you.
+These decorations are wonderful.
+Good evening.
+Fabulous to see you here, old chap.
+Good evening, I hope you are enjoying yourself.
+Pleasure is all yours.
+What's up?
+How are you doing?
+Nice to meet you, my name is {npc-speaker}

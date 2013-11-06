@@ -7,4 +7,26 @@ I'll see you around!
 Have a nice night!
 Enjoy the rest of your evening.
 I have to go, my friends are waiting.
-Anyways, I need to go get some more champagane for my bud {npc-name}
+Anyway, I need to go get some more champagne for my bud {npc-name}
+Wow it's later than I thought, I need to get going
+{npc-name} is waiting for me, I'll catch you later.
+Cheers.
+Ciao for now.
+See you around.
+I'll see ya later.
+So long.
+Some other time.
+Take it easy.
+Ta-ta.
+Talk to you later.
+Till next time.
+Well, I'm off.
+Have a good night.
+Have a good one.
+Bye!
+Cheerio.
+I need to scoot.
+It was nice seeing you.
+I gotta go.
+I gotta run.
+I gotta split.

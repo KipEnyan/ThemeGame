@@ -3,10 +3,10 @@ using System.Collections;
 
 public class dialogueManager : MonoBehaviour {
 	
-	private string[] greetings;
+	//private string[] greetings;
 	private string[] hints;
 	private string[] misc;
-	private string[] farewells;
+	//private string[] farewells;
 	private string[] panic;
 	private int line_len = 40;
 	private GameVariables NPCInfo;
@@ -15,10 +15,10 @@ public class dialogueManager : MonoBehaviour {
 	void Start () {
 	
 		/* load dialogue from file and break up accordingly */
-		greetings = ((TextAsset)Resources.Load("greetings", typeof(TextAsset))).text.Split('\n');
+		//greetings = ((TextAsset)Resources.Load("greetings", typeof(TextAsset))).text.Split('\n');
 		hints = ((TextAsset)Resources.Load("hints", typeof(TextAsset))).text.Split('\n');
 		misc = ((TextAsset)Resources.Load("misc", typeof(TextAsset))).text.Split('\n');
-		farewells = ((TextAsset)Resources.Load("farewells", typeof(TextAsset))).text.Split('\n');
+		//farewells = ((TextAsset)Resources.Load("farewells", typeof(TextAsset))).text.Split('\n');
 		panic = ((TextAsset)Resources.Load("panic", typeof(TextAsset))).text.Split('\n');
 		
 		/* cache the NPCInfo object from the GameVars */
@@ -32,9 +32,8 @@ public class dialogueManager : MonoBehaviour {
 		string return_str = "";
 		
 		/* dynamically tweak sentences to keep things interesting */
-		
 		NPCProperties npc_props;
-		if(speech_state == "hint")
+		if(speech_state == "hint" && (Random.Range(0,1) == 0))		//TODO: REBALANCE
 			npc_props = (NPCProperties)NPCInfo.target.GetComponent("NPCProperties");
 		else
 			npc_props = (NPCProperties)NPCInfo.npcs[Random.Range(0, NPCInfo.npcs.Count - 1)].GetComponent("NPCProperties");
@@ -68,17 +67,21 @@ public class dialogueManager : MonoBehaviour {
 	public string getDialogue(string speech_state){
 		string some_dialogue;
 		
+		if(speech_state == "converse")
+			speech_state = (Random.Range(0,3) > 0) ? "misc" : "hint";	//TODO: REBALANCE ... 25% chance to spew hint
+
+		
 		/* select dialogue for corresponding conversation state */
 		switch(speech_state)
 		{
-			case "greeting":
-				some_dialogue = greetings[Random.Range (0, greetings.Length-1)]; break;
+			//case "greeting":
+			//	some_dialogue = greetings[Random.Range (0, greetings.Length-1)]; break;
 			case "hint":
 				some_dialogue = hints[Random.Range (0, hints.Length-1)]; break;
 			case "misc":
 				some_dialogue = misc[Random.Range (0, misc.Length-1)]; break;
-			case "farewell":
-				some_dialogue = farewells[Random.Range (0, farewells.Length-1)]; break;
+			//case "farewell":
+			//	some_dialogue = farewells[Random.Range (0, farewells.Length-1)]; break;
 			case "panic":
 				some_dialogue = panic[Random.Range (0, panic.Length-1)]; break;
 			default:

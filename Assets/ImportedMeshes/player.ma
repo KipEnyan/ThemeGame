@@ -1,6 +1,6 @@
 //Maya ASCII 2013 scene
 //Name: player.ma
-//Last modified: Tue, Nov 05, 2013 09:07:11 PM
+//Last modified: Tue, Nov 05, 2013 09:49:24 PM
 //Codeset: 1252
 requires maya "2013";
 requires "stereoCamera" "10.0";
@@ -13,7 +13,7 @@ fileInfo "osv" "Microsoft Windows 7 Enterprise Edition, 64-bit Windows 7 Service
 fileInfo "license" "student";
 createNode transform -s -n "persp";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" -1.4069782702396567 1.4701369907889088 1.0720341097578197 ;
+	setAttr ".t" -type "double3" -1.3356808438547154 1.5441490565442493 1.1313214341796316 ;
 	setAttr ".r" -type "double3" -12.338416757738042 -409.79999999995192 1.2318989849961397e-015 ;
 createNode camera -s -n "perspShape" -p "persp";
 	setAttr -k off ".v" no;
@@ -371,7 +371,7 @@ createNode orientConstraint -n "r_wrist_orientConstraint1" -p "r_wrist";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 89.121498445281802 0.041254927285451 -4.0531804428924856 ;
+	setAttr ".lr" -type "double3" 89.108175057849735 0.54873417869502983 25.942713195344478 ;
 	setAttr ".o" -type "double3" -89.119296956920749 4.0520706929420021 0.10349780532758836 ;
 	setAttr ".rsrr" -type "double3" -6.3611093629270335e-015 -4.4139062980501586e-032 
 		-7.9513867036587919e-016 ;
@@ -412,7 +412,7 @@ createNode orientConstraint -n "r_forearm_orientConstraint1" -p "r_forearm";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 89.121498445281802 0.041254927285451 -4.0531804428924856 ;
+	setAttr ".lr" -type "double3" 89.259806783994335 0.47496670478037406 25.944067776706454 ;
 	setAttr ".o" -type "double3" -89.119296956920749 4.0520706929420021 0.10349780532758836 ;
 	setAttr ".rsrr" -type "double3" -6.3611093629270335e-015 -4.4139062980501586e-032 
 		-7.9513867036587919e-016 ;
@@ -431,7 +431,7 @@ createNode orientConstraint -n "r_elbow_orientConstraint1" -p "r_elbow";
 	setAttr -k off ".sy";
 	setAttr -k off ".sz";
 	setAttr ".erp" yes;
-	setAttr ".lr" -type "double3" 65.633405837313305 -18.011629161514385 60.102082817990322 ;
+	setAttr ".lr" -type "double3" 95.853871792867011 -29.44540289821515 -7.3569494737197996 ;
 	setAttr ".o" -type "double3" -89.119296956920778 4.0520706929419994 0.10349780532758757 ;
 	setAttr ".rsrr" -type "double3" -1.2532702747651137e-014 2.9829344284856296e-016 
 		10 ;
@@ -915,7 +915,7 @@ createNode parentConstraint -n "right_handCTRL_parentConstraint1" -p "right_hand
 	setAttr ".tg[0].tot" -type "double3" 1.4210854715202004e-016 -1.7763568394002505e-017 
 		0 ;
 	setAttr ".tg[0].tor" -type "double3" 89.12149844528173 0.041254927285470595 -4.05318044289249 ;
-	setAttr ".lr" -type "double3" -42.465853108438509 155.6093672322113 23.912260649048839 ;
+	setAttr ".lr" -type "double3" -68.261693520066217 138.06299607557614 -6.8375737150746216 ;
 	setAttr ".rst" -type "double3" 1.4210854715202004e-016 -1.4210854715202004e-016 
 		-8.8817841970012525e-018 ;
 	setAttr ".rsrr" -type "double3" 5.7026351515302923e-015 9.4967952693985446e-031 
@@ -2682,18 +2682,18 @@ createNode animCurveTA -n "right_shoulderCTRL_rotateX";
 createNode animCurveTA -n "right_wristCTRL_rotateX";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  25 0;
+	setAttr -s 2 ".ktv[0:1]"  25 0 33 0;
 createNode animCurveTA -n "right_wristCTRL_rotateY";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr -s 3 ".ktv[0:2]"  25 0 35 0 40 -10;
+	setAttr -s 4 ".ktv[0:3]"  25 0 33 0 35 29.999999999999996 40 29.999999999999996;
 createNode animCurveTA -n "right_wristCTRL_rotateZ";
 	setAttr ".tan" 18;
 	setAttr ".wgt" no;
-	setAttr ".ktv[0]"  25 0;
+	setAttr -s 2 ".ktv[0:1]"  25 0 33 0;
 select -ne :time1;
-	setAttr ".o" 1;
-	setAttr ".unw" 1;
+	setAttr ".o" 39;
+	setAttr ".unw" 39;
 select -ne :renderPartition;
 	setAttr -s 5 ".st";
 select -ne :initialShadingGroup;
