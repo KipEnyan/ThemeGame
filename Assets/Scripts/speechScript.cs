@@ -11,7 +11,8 @@ public class speechScript : MonoBehaviour {
 	
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
         GameObject gameController;
         gameController = GameObject.FindGameObjectWithTag("GameController");
 		dialogueMgr = (dialogueManager)gameController.GetComponent("dialogueManager");
@@ -20,7 +21,8 @@ public class speechScript : MonoBehaviour {
 		dialogueTimer = dialogueReset;
 	}
 	
-	void Update () {
+	void Update () 
+	{
 	
 		/* Track speech billboard towards player in the XY direction */
 		transform.LookAt( cameraToLookAt.transform.position );
@@ -29,15 +31,22 @@ public class speechScript : MonoBehaviour {
 		/* update billboard text */
 		dialogueTimer -= Time.deltaTime;
 		if(dialogueTimer <= 0){
-			TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
-			temp.text = dialogueMgr.getDialogue(npcState);
-			dialogueReset = Random.Range(3.0f,6.5f);
-			dialogueTimer = dialogueReset;
+			string someText = dialogueMgr.getDialogue(npcState);
+			setText (someText);
 		}
 	}
 	
+	public void setText(string someText)
+	{
+		TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
+		temp.text = someText;
+		dialogueReset = Random.Range(3.0f,6.5f);
+		dialogueTimer = dialogueReset;
+	}
+	
 	/* update speech state... */
-	public void updateState(string someState){
+	public void updateState(string someState)
+	{
 		npcState = someState;
 		return;
 	}
