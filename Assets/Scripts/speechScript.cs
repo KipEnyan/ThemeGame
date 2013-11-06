@@ -18,7 +18,7 @@ public class speechScript : MonoBehaviour {
         gameController = GameObject.FindGameObjectWithTag("GameController");
 		dialogueMgr = (dialogueManager)gameController.GetComponent("dialogueManager");
 		cameraToLookAt = Camera.main;
-		dialogueReset = Random.Range(3.0f,6.5f);
+		dialogueReset = 5f;
 		dialogueTimer = dialogueReset;
 	}
 	
@@ -38,13 +38,13 @@ public class speechScript : MonoBehaviour {
 			string someText = dialogueMgr.getDialogue(npcState);
 			setText (someText);
 		}
+		lastState = npcState;
 	}
 	
 	public void setText(string someText)
 	{
 		TextMesh temp = (TextMesh)gameObject.GetComponent(typeof(TextMesh));
 		temp.text = someText;
-		dialogueReset = Random.Range(3.0f,6.5f);
 		dialogueTimer = dialogueReset;
 	}
 	

@@ -5,6 +5,7 @@ public class playerScript : MonoBehaviour {
 
 	public float meleeDistance = 1;
 	public Material bloodyMaterial;
+	public bool makingNoise = false;
 
 	private GameObject playerComponent;
 	private GameObject playerMesh;
@@ -34,7 +35,8 @@ public class playerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		
+		makingNoise = false;
         // animation code
 		if(Input.GetMouseButtonDown(0)){
             animator.SetBool("isStabbing", true);
@@ -65,10 +67,12 @@ public class playerScript : MonoBehaviour {
 
 					//playerComponent
 
-                    //if (!npcAI.isDead) {
-                    //   print("Killed an NPC");
-                    //   npcAI.isDead = true;
-                    //}
+                    if (!npcAI.isDead) 
+					{
+                       //print("Killed an NPC");
+						makingNoise = true;
+                    	npcAI.isDying = true;
+                    }
                 }
             }
         }

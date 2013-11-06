@@ -3,8 +3,6 @@ using System.Collections;
 
 public class NPCProperties : MonoBehaviour {
 
-	public bool isDead = false;
-
     // NPCSpawner sets these, other logic will use these to identify this NPC
     public string npcName;
 
