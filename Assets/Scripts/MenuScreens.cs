@@ -14,6 +14,7 @@ public class MenuScreens : MonoBehaviour {
 	public Texture lose_bg;
 	public GUIStyle mainmenu_text;
 	public GUIStyle paused_text;
+	private AudioSource crowdSoundSrc;
 	
 	void Awake ()
 	{
@@ -23,6 +24,7 @@ public class MenuScreens : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
         GameObject gameController = GameObject.FindGameObjectWithTag("GameController");
 		gameVariables = gameController.GetComponent<GameVariables>();
+		crowdSoundSrc = gameController.GetComponent<AudioSource>();
 		
 		/* use the main menu font as a base for the pause text */
 		paused_text = new GUIStyle(mainmenu_text);
@@ -63,6 +65,7 @@ public class MenuScreens : MonoBehaviour {
     	player.transform.GetComponent<MouseLook>().enabled = !paused;
 		Camera.main.GetComponent<MouseLook>().enabled = !paused;
 		Screen.lockCursor = !paused;
+		crowdSoundSrc.mute = paused;
 		
 	}
 	
