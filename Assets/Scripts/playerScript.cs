@@ -2,8 +2,12 @@
 using System.Collections;
 
 public class playerScript : MonoBehaviour {
-	
+
+	public GameObject playerComponent;
+    public Animator animator;
 	public float meleeDistance = 1;
+
+    private bool isStabbing = false;
 	
 	//Given a distance, check if there's an object
 	//infront of our player. Returns collider
@@ -17,25 +21,47 @@ public class playerScript : MonoBehaviour {
 
 		return hit;
 	}
-	
+
+    void Start () {
+        animator = playerComponent.GetComponent<Animator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
-		//process melee
+
+        // animation code
 		if(Input.GetMouseButtonDown(0)){
-			Collider meleeVic = raycastForward(meleeDistance).collider;
-			
-			//do relevant collision stuff here
-			if(meleeVic){				
-				print("Hit " + meleeVic.name);
-				if(meleeVic.name == "dummy_man")
-					Destroy(meleeVic.gameObject);
-				
-			}
-		}
-		
-		
-		
+            animator.SetBool("isStabbing", true);
+            animator.SetBool("isWalking", false);
+            animator.SetBool("isIdle", false);
+            isStabbing = true;
+        }
+
+        if(Input.GetMouseButtonUp(0)){
+            animator.SetBool("isStabbing", false);
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isIdle", false);
+            isStabbing = false;
+        }
+
+        // collision code
+        if (isStabbing) {
+            Collider meleeVic = raycastForward(meleeDistance).collider;
+
+            if (meleeVic) {
+                if (meleeVic.CompareTag("NPC")) {
+                    GameObject npc = meleeVic.gameObject;
+                    NPCAI npcAI = (NPCAI)npc.GetComponent("NPCAI");
+
+					print ("meleed an NPC");
+
+                    //if (!npcAI.isDead) {
+                    //   print("Killed an NPC");
+                    //   npcAI.isDead = true;
+                    //}
+                }
+            }
+        }
+
 	}
 }
